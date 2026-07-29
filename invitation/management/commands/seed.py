@@ -13,7 +13,7 @@ class Command(BaseCommand):
         w.event_title = 'Беташар тойға шақыру'
         w.groom = 'Бексултан'
         w.bride = 'Дамира'
-        w.event_datetime = timezone.make_aware(datetime(2026, 8, 2, 14, 0))
+        w.event_datetime = timezone.make_aware(datetime(2026, 8, 2, 16, 0))
         w.rsvp_deadline = date(2026, 7, 31)
 
         w.venue_name = 'Rixos President Astana'

@@ -61,7 +61,7 @@ class RsvpAdmin(admin.ModelAdmin):
     def answer(self, obj):
         if obj.attendance == obj.DECLINE:
             return format_html('<span style="color:#A15C5C">{}</span>', '✕ не сможет')
-        text = 'придёт один (одна)' if obj.attendance == obj.ALONE else 'придёт с парой'
+        text = 'придёт один (одна)' if obj.attendance == obj.ALONE else ('придёт с парой и детьми' if obj.with_children else 'придёт с парой')
         return format_html('<span style="color:#3F6B3F">✓ {}</span>', text)
 
     @admin.display(description='Гостей')

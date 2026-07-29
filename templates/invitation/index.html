@@ -127,6 +127,11 @@
             <span class="option__text">{{ radio.choice_label }}</span>
           </label>
           {% endfor %}
+          <label class="option option--child" id="childrenOption" hidden>
+            {{ form.with_children }}
+            <span class="option__check" aria-hidden="true"></span>
+            <span class="option__text">С детьми</span>
+          </label>
           <span class="field__error" data-error="attendance"></span>
         </fieldset>
 

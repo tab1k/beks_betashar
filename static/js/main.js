@@ -257,6 +257,19 @@
   if (form) {
     var submitBtn = $('#submitBtn');
     var thanks = $('#thanks');
+    var childrenOption = $('#childrenOption');
+
+    var syncChildrenOption = function () {
+      if (!childrenOption) { return; }
+      var couple = form.querySelector('[name="attendance"][value="couple"]');
+      var show = couple && couple.checked;
+      childrenOption.hidden = !show;
+      if (!show) { childrenOption.querySelector('input').checked = false; }
+    };
+    $$('.option input[name="attendance"]', form).forEach(function (input) {
+      input.addEventListener('change', syncChildrenOption);
+    });
+    syncChildrenOption();
 
     var clearErrors = function () {
       $$('.field__error', form).forEach(function (el) { el.textContent = ''; });

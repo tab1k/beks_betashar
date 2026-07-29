@@ -7,7 +7,7 @@ from django.utils import timezone
 def default_event_datetime():
     """Дата мероприятия. Нужна как умолчание: на пустой базе запись
     создаётся сама, и без этого сайт показывал сегодняшнее число."""
-    return timezone.make_aware(datetime(2026, 8, 2, 14, 0))
+    return timezone.make_aware(datetime(2026, 8, 2, 16, 0))
 
 
 def default_rsvp_deadline():
@@ -138,6 +138,7 @@ class Rsvp(models.Model):
 
     name = models.CharField('Имя Фамилия', max_length=120)
     attendance = models.CharField('Ответ', max_length=16, choices=ATTENDANCE_CHOICES)
+    with_children = models.BooleanField('С детьми', default=False)
     phone = models.CharField('Телефон', max_length=32, blank=True)
     wish = models.TextField('Пожелание', blank=True)
     created_at = models.DateTimeField('Отправлено', auto_now_add=True)
