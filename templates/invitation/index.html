@@ -1,0 +1,178 @@
+{% load static %}<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3EFE4">
+<title>{{ w.groom }} &amp; {{ w.bride }} — {{ w.event_title }}</title>
+<meta name="description" content="{{ w.event_title }} — {{ w.groom }} и {{ w.bride }}. {{ day }} {{ month }}, {{ w.venue_name }}.">
+<meta property="og:title" content="{{ w.groom }} & {{ w.bride }} — {{ w.event_title }}">
+<meta property="og:description" content="{{ day }} {{ month }} · {{ w.venue_name }}">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- ═══════════ ОБЛОЖКА ═══════════ -->
+<div class="cover" id="cover">
+  <div class="cover__inner">
+    <div class="ornament ornament--top" aria-hidden="true">{% include 'invitation/_ornament.svg' %}</div>
+    <p class="cover__label">{{ w.event_title }}</p>
+    <h1 class="cover__names">{{ w.groom }}<br><span class="amp amp--big">&amp;</span><br>{{ w.bride }}</h1>
+    <p class="cover__date">{{ day }} {{ month }} {{ event.year }}</p>
+    <button class="cover__btn" id="openBtn" type="button">
+      <span>Открыть</span>
+    </button>
+    <div class="ornament ornament--bottom" aria-hidden="true">{% include 'invitation/_ornament.svg' %}</div>
+  </div>
+</div>
+<div class="ripple-layer" id="rippleLayer" aria-hidden="true" hidden><span class="ripple" id="ripple"></span></div>
+
+<main class="page" id="page">
+
+  <!-- ═══════════ ШАПКА ═══════════ -->
+  <header class="topbar">
+    <span class="topbar__names">{{ w.groom }} &amp; {{ w.bride }}</span>
+    {% if music_url %}
+    <button class="music" id="musicBtn" type="button" aria-label="Включить или выключить музыку" aria-pressed="false">
+      <span class="music__bars"><i></i><i></i><i></i><i></i></span>
+    </button>
+    <audio id="audio" loop preload="auto" src="{{ music_url }}"></audio>
+    {% endif %}
+  </header>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero{% if w.hero_image %} hero--photo{% endif %}">
+    {% if w.hero_image %}<img class="hero__img" src="{{ w.hero_image.url }}" alt="{{ w.groom }} и {{ w.bride }}">{% endif %}
+    <div class="stars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="hero__body reveal">
+      <p class="eyebrow">Save the date</p>
+      <h2 class="script script--xl">{{ w.groom }}<br><span class="amp amp--big">&amp;</span><br>{{ w.bride }}</h2>
+      <div class="rule" aria-hidden="true"><span></span>&#10022;<span></span></div>
+      <p class="hero__date">{{ day }}.{{ event|date:"m" }}.{{ event.year }}</p>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><i></i></div>
+  </section>
+
+  <!-- ═══════════ ЦИТАТА / КОНВЕРТ ═══════════ -->
+  <section class="section section--paper">
+    <div class="envelope reveal">
+      <div class="envelope__card">
+        <p class="script script--md">{{ w.intro }}</p>
+      </div>
+      <div class="envelope__flap" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ДАТА ═══════════ -->
+  <section class="section section--dark">
+    <div class="reveal">
+      <p class="eyebrow eyebrow--light">Дата торжества</p>
+      <div class="dateblock">
+        <span class="dateblock__weekday">{{ weekday }}</span>
+        <span class="dateblock__day">{{ day }}</span>
+        <span class="dateblock__month">{{ month }} {{ event.year }}</span>
+        <span class="dateblock__time">в {{ time }}</span>
+      </div>
+
+      <!-- обратный отсчёт -->
+      <div class="countdown" id="countdown" data-target="{{ countdown_iso }}">
+        <div class="countdown__cell"><b data-cd="d">0</b><span>дней</span></div>
+        <div class="countdown__cell"><b data-cd="h">0</b><span>часов</span></div>
+        <div class="countdown__cell"><b data-cd="m">0</b><span>минут</span></div>
+        <div class="countdown__cell"><b data-cd="s">0</b><span>секунд</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ МЕСТО ═══════════ -->
+  <section class="section">
+    <div class="reveal">
+      <p class="eyebrow">Место проведения</p>
+      <h3 class="script script--lg">«{{ w.venue_name }}»</h3>
+      <p class="prose prose--tight">{{ w.venue_address }}</p>
+      {% if w.map_url %}
+      <a class="btn" href="{{ w.map_url }}" target="_blank" rel="noopener">Открыть карту</a>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ═══════════ RSVP ═══════════ -->
+  <section class="section section--dark" id="rsvp">
+    <div class="reveal">
+      <p class="eyebrow eyebrow--light">Анкета гостя</p>
+      <h3 class="script script--lg script--light">Подтвердите,&nbsp;пожалуйста,<br>своё присутствие</h3>
+      {% if w.rsvp_deadline %}
+      <p class="deadline">Просим ответить до {{ w.rsvp_deadline|date:"d.m.Y" }}</p>
+      {% endif %}
+
+      <form class="form" id="rsvpForm" method="post" action="{% url 'invitation:rsvp' %}" novalidate>
+        {% csrf_token %}
+
+        <label class="field">
+          <span class="field__label">Имя Фамилия <em>*</em></span>
+          {{ form.name }}
+          <span class="field__error" data-error="name"></span>
+        </label>
+
+        <fieldset class="field field--radio">
+          <legend class="field__label">Сможете ли Вы прийти? <em>*</em></legend>
+          {% for radio in form.attendance %}
+          <label class="option">
+            {{ radio.tag }}
+            <span class="option__mark" aria-hidden="true"></span>
+            <span class="option__text">{{ radio.choice_label }}</span>
+          </label>
+          {% endfor %}
+          <span class="field__error" data-error="attendance"></span>
+        </fieldset>
+
+        <label class="field">
+          <span class="field__label">Телефон</span>
+          {{ form.phone }}
+        </label>
+
+        <label class="field">
+          <span class="field__label">Пожелание молодожёнам</span>
+          {{ form.wish }}
+        </label>
+
+        <button class="btn btn--solid" type="submit" id="submitBtn">Отправить</button>
+      </form>
+
+      <div class="thanks" id="thanks" hidden>
+        <div class="thanks__mark" aria-hidden="true">&#10022;</div>
+        <h4 class="script script--lg script--light" id="thanksTitle">Спасибо!</h4>
+        <p class="prose prose--light" id="thanksText"></p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ═══════════ ФИНАЛ ═══════════ -->
+  <section class="final">
+    <div class="reveal">
+      <div class="ornament" aria-hidden="true">{% include 'invitation/_ornament.svg' %}</div>
+      <p class="prose prose--tight">{{ w.farewell }}</p>
+      <h3 class="script script--xl">{{ w.groom }}<br><span class="amp amp--big">&amp;</span><br>{{ w.bride }}</h3>
+      <p class="final__date">{{ day }}.{{ event|date:"m" }}.{{ event.year }}</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ ФУТЕР ═══════════ -->
+  <footer class="footer">
+    <p class="credit">
+      Разработано для брата от
+      <a href="https://www.instagram.com/tab1kkz" target="_blank" rel="noopener">tab1k</a>
+    </p>
+  </footer>
+
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

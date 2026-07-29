@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import django; print\\(django.get_version\\(\\)\\)\")",
+      "WebFetch(domain:invitedesiign.kz)",
+      "Bash(curl -sL \"https://invitedesiign.kz/aibek-arina\" -o page.html)",
+      "Bash(python3 -c ' *)",
+      "Bash(grep -v \"tilda.*js$\")",
+      "Bash(python3 -m venv .venv)",
+      "Bash(.venv/bin/pip install *)",
+      "Bash(.venv/bin/python -c \"import django;print\\(django.get_version\\(\\)\\)\")",
+      "Bash(.venv/bin/python manage.py makemigrations invitation)",
+      "Bash(.venv/bin/python manage.py seed)",
+      "Bash(DJANGO_SUPERUSER_PASSWORD=admin .venv/bin/python manage.py createsuperuser --noinput --username admin --email admin@ziz.kz)",
+      "Bash(curl -s http://127.0.0.1:8000/)",
+      "Read(//Applications/**)",
+      "Bash(.venv/bin/pip list *)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --screenshot=s1.png --window-size=430,932 --hide-scrollbars --virtual-time-budget=8000 http://127.0.0.1:8000/)",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/pip freeze *)",
+      "Bash(curl -s -o /dev/null -w \"index:%{http_code} \" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"admin:%{http_code}\\\\n\" -L -u admin:admin http://127.0.0.1:8000/admin/)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless --disable-gpu --screenshot=cover2.png --window-size=500,900 --hide-scrollbars --virtual-time-budget=8000 http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"index:%{http_code}\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(.venv/bin/python manage.py make_users)",
+      "Bash(curl -s -o /dev/null -w \"mp3: %{http_code}, размер %{size_download} байт\\\\n\" \"http://127.0.0.1:8000/static/audio/Ed_Sheeran_-_Perfect_\\(SkySound.cc\\).mp3\")"
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+<svg viewBox="0 0 240 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="currentColor" stroke-width="1" stroke-linecap="round" fill="none">
+    <path d="M10 20h58"/>
+    <path d="M172 20h58"/>
+    <path d="M68 20c6-9 15-12 20-7s-2 14-9 12-9-9-4-13c6-5 16-3 21 4"/>
+    <path d="M172 20c-6-9-15-12-20-7s2 14 9 12 9-9 4-13c-6-5-16-3-21 4"/>
+    <path d="M96 20c4 6 12 9 18 4 5-4 7-11 6-16"/>
+    <path d="M144 20c-4 6-12 9-18 4-5-4-7-11-6-16"/>
+    <path d="M120 8v4"/>
+  </g>
+  <circle cx="120" cy="20" r="2.5" fill="currentColor"/>
+  <circle cx="104" cy="20" r="1.2" fill="currentColor"/>
+  <circle cx="136" cy="20" r="1.2" fill="currentColor"/>
+</svg>

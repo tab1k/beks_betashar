@@ -1,0 +1,92 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+<div class="rsvp-summary">
+  <div class="rsvp-cards">
+    <div class="rsvp-card rsvp-card--main">
+      <b>{{ stats.guests }}</b>
+      <span>человек придёт</span>
+    </div>
+    <div class="rsvp-card">
+      <b>{{ stats.total }}</b>
+      <span>ответили всего</span>
+    </div>
+    <div class="rsvp-card">
+      <b>{{ stats.alone }}</b>
+      <span>придут по одному</span>
+    </div>
+    <div class="rsvp-card">
+      <b>{{ stats.couple }}</b>
+      <span>придут с парой</span>
+    </div>
+    <div class="rsvp-card rsvp-card--no">
+      <b>{{ stats.decline }}</b>
+      <span>не смогут</span>
+    </div>
+  </div>
+
+  <a class="rsvp-export" href="{% url 'admin:invitation_rsvp_export' %}">↓ Скачать список (Excel)</a>
+</div>
+
+<style>
+  .rsvp-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 22px;
+  }
+  .rsvp-cards {
+    flex: 1 1 520px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .rsvp-card {
+    padding: 14px 18px;
+    border: 1px solid #dcd8cc;
+    border-left: 3px solid #6B7355;
+    border-radius: 5px;
+    background: #fbfaf6;
+  }
+  .rsvp-card b {
+    display: block;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 600;
+    color: #2f3a2a;
+  }
+  .rsvp-card span {
+    display: block;
+    margin-top: 3px;
+    font-size: 12px;
+    color: #6f6f66;
+  }
+  .rsvp-card--main {
+    background: #454D3B;
+    border-color: #454D3B;
+    border-left-color: #AD9765;
+  }
+  .rsvp-card--main b { color: #fff; font-size: 36px; }
+  .rsvp-card--main span { color: rgba(255, 255, 255, .75); }
+  .rsvp-card--no { border-left-color: #A15C5C; }
+
+  .rsvp-export {
+    align-self: center;
+    flex: 0 0 auto;
+    padding: 12px 20px;
+    border-radius: 5px;
+    background: #6B7355;
+    color: #fff !important;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .rsvp-export:hover { background: #565e44; }
+
+  /* заказчику незачем видеть счётчик выделенных строк, если действий нет */
+  .rsvp-summary + #changelist .actions:empty { display: none; }
+</style>
+
+{{ block.super }}
+{% endblock %}
