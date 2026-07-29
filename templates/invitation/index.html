@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
 </head>
 <body>
 
@@ -126,12 +126,14 @@
             <span class="option__mark" aria-hidden="true"></span>
             <span class="option__text">{{ radio.choice_label }}</span>
           </label>
-          {% endfor %}
+          {% if radio.data.value == 'couple' %}
           <label class="option option--child" id="childrenOption" hidden>
             {{ form.with_children }}
             <span class="option__check" aria-hidden="true"></span>
             <span class="option__text">С детьми</span>
           </label>
+          {% endif %}
+          {% endfor %}
           <span class="field__error" data-error="attendance"></span>
         </fieldset>
 

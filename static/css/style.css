@@ -822,10 +822,10 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .option--child { margin: -4px 0 0 29px; padding-top: 5px; }
 .option--child input { position: absolute; opacity: 0; width: 0; height: 0; }
-.option__check { flex: 0 0 auto; width: 17px; height: 17px; margin-top: 3px; border: 1px solid rgba(245, 241, 230, .4); border-radius: 3px; position: relative; }
-.option__check::after { content: '✓'; position: absolute; inset: -3px 0 0 2px; color: var(--gold); font-size: 17px; line-height: 1; opacity: 0; }
+.option__check { flex: 0 0 auto; width: 17px; height: 17px; margin-top: 3px; border: 1px solid rgba(245, 241, 230, .4); border-radius: 50%; position: relative; }
+.option__check::after { content: ''; position: absolute; inset: 3.5px; border-radius: 50%; background: var(--gold); transform: scale(0); transition: transform .3s var(--ease); }
 .option--child input:checked + .option__check { border-color: var(--gold); }
-.option--child input:checked + .option__check::after { opacity: 1; }
+.option--child input:checked + .option__check::after { transform: scale(1); }
 .option--child input:focus-visible + .option__check { box-shadow: 0 0 0 3px rgba(173, 151, 101, .35); }
 
 /* благодарность */
