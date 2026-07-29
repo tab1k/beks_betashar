@@ -85,3 +85,37 @@ python3 -m venv .venv
 - `SECRET_KEY` — вынести в переменную окружения
 - `ALLOWED_HOSTS` и `CSRF_TRUSTED_ORIGINS` — указать реальный домен
 - `python manage.py collectstatic` и раздача `static/` + `media/` веб-сервером
+
+## Выкладка на PythonAnywhere
+
+Домен `betashar.pythonanywhere.com` уже прописан в `ALLOWED_HOSTS` и
+`CSRF_TRUSTED_ORIGINS`.
+
+После каждой заливки кода — в bash-консоли PythonAnywhere:
+
+```bash
+cd ~/betashar
+python manage.py migrate
+python manage.py collectstatic --noinput
+```
+
+и **Web → Reload**.
+
+Первый раз дополнительно:
+
+```bash
+python manage.py seed        # данные мероприятия
+python manage.py make_users  # логины admin и guests, пароли покажет
+```
+
+`db.sqlite3` намеренно не попадает в репозиторий — у сервера своя база.
+Поэтому тексты и дату там задаёт либо `seed`, либо админка.
+
+Во вкладке **Web → Static files** должно быть:
+
+| URL | Directory |
+|---|---|
+| `/static/` | `/home/<логин>/betashar/staticfiles` |
+| `/media/` | `/home/<логин>/betashar/media` |
+
+Без этого при `DEBUG = False` отвалятся стили, шрифты и музыка.

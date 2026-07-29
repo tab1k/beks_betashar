@@ -3,16 +3,7 @@ from datetime import date, datetime
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from invitation.models import ScheduleItem, Wedding
-
-SCHEDULE = [
-    ('14:00', 'Сбор гостей', 'Встреча на летней площадке'),
-    ('14:30', 'Беташар', 'Обряд открытия лица невесты'),
-    ('15:15', 'Дастархан', 'Праздничный обед'),
-    ('16:30', 'Поздравления', 'Слова родных и близких'),
-    ('17:30', 'Музыкальная программа', 'Живая музыка и танцы'),
-]
-
+from invitation.models import Wedding
 
 class Command(BaseCommand):
     help = 'Заполняет приглашение данными мероприятия'
@@ -34,9 +25,5 @@ class Command(BaseCommand):
             'на наш беташар — разделите с нами этот особенный день.'
         )
         w.save()
-
-        ScheduleItem.objects.all().delete()
-        for i, (time, title, desc) in enumerate(SCHEDULE, start=1):
-            ScheduleItem.objects.create(time=time, title=title, description=desc, order=i)
 
         self.stdout.write(self.style.SUCCESS('Данные приглашения загружены'))

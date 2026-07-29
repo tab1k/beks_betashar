@@ -1,5 +1,17 @@
+from datetime import date, datetime
+
 from django.db import models
 from django.utils import timezone
+
+
+def default_event_datetime():
+    """Дата мероприятия. Нужна как умолчание: на пустой базе запись
+    создаётся сама, и без этого сайт показывал сегодняшнее число."""
+    return timezone.make_aware(datetime(2026, 8, 2, 14, 0))
+
+
+def default_rsvp_deadline():
+    return date(2026, 7, 31)
 
 
 class SingletonModel(models.Model):
@@ -35,7 +47,7 @@ class Wedding(SingletonModel):
 
     event_datetime = models.DateTimeField(
         'Дата и время торжества',
-        default=timezone.now,
+        default=default_event_datetime,
         help_text='К этому времени идёт обратный отсчёт',
     )
 
@@ -43,18 +55,18 @@ class Wedding(SingletonModel):
         'Текст приглашения (в конверте)',
         default=(
             'Дорогие родные и друзья! С трепетом и радостью приглашаем вас '
-            'разделить с нами самый важный день нашей жизни.'
+            'на наш беташар — разделите с нами этот особенный день.'
         ),
     )
 
-    venue_name = models.CharField('Название заведения', max_length=120, default='Elegant Emirates')
+    venue_name = models.CharField('Название заведения', max_length=120, default='Rixos President Astana')
     venue_address = models.CharField(
-        'Адрес', max_length=200, default='г. Шымкент, пр. Байдибек би, 7/17'
+        'Адрес', max_length=200, default='г. Астана, летняя площадка'
     )
     map_url = models.URLField(
         'Ссылка на карту',
         blank=True,
-        default='https://2gis.kz/shymkent/search/Elegant%20Emirates',
+        default='https://2gis.kz/astana/geo/70000001018072481/71.421419,51.134270',
     )
 
     dress_code = models.CharField('Дресс-код', max_length=120, default='Вечерний / Black tie')
@@ -70,12 +82,12 @@ class Wedding(SingletonModel):
         default='#4A5240,#6B7355,#8C9475,#C9BFA6,#EDE5D4',
     )
 
-    phone_1_label = models.CharField('Контакт 1 — имя', max_length=60, blank=True, default='Айбек')
-    phone_1 = models.CharField('Контакт 1 — телефон', max_length=32, blank=True, default='+7 700 000 00 00')
-    phone_2_label = models.CharField('Контакт 2 — имя', max_length=60, blank=True, default='Арина')
-    phone_2 = models.CharField('Контакт 2 — телефон', max_length=32, blank=True, default='+7 700 000 00 01')
+    phone_1_label = models.CharField('Контакт 1 — имя', max_length=60, blank=True, default='Бексултан')
+    phone_1 = models.CharField('Контакт 1 — телефон', max_length=32, blank=True)
+    phone_2_label = models.CharField('Контакт 2 — имя', max_length=60, blank=True, default='Дамира')
+    phone_2 = models.CharField('Контакт 2 — телефон', max_length=32, blank=True)
 
-    rsvp_deadline = models.DateField('Ответить до', null=True, blank=True)
+    rsvp_deadline = models.DateField('Ответить до', null=True, blank=True, default=default_rsvp_deadline)
     farewell = models.CharField(
         'Прощальная строка', max_length=200, default='С любовью и трепетом ждём вас'
     )
