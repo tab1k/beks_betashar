@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-w7y9lsnj!ai&%#p4u3nhb&rs6*7n)(jnvge3dm(o$&cuxp)zku
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['betashar.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -125,4 +125,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1:8000']
+# без боевого домена в этом списке анкета на сайте вернёт 403
+CSRF_TRUSTED_ORIGINS = [
+    'https://betashar.pythonanywhere.com',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+]
