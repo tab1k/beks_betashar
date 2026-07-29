@@ -26,7 +26,10 @@
       "Bash(curl -s -o /dev/null -w \"mp3: %{http_code}, размер %{size_download} байт\\\\n\" \"http://127.0.0.1:8000/static/audio/Ed_Sheeran_-_Perfect_\\(SkySound.cc\\).mp3\")",
       "Bash(curl -s -o /dev/null -w \"127.0.0.1: %{http_code}\\\\n\" http://127.0.0.1:8000/)",
       "Bash(curl -s -o /dev/null -w \"localhost: %{http_code}\\\\n\" http://localhost:8000/)",
-      "Bash(curl -s -o /dev/null -w \"чужой хост: %{http_code} \\(400 = отклонён, так и надо\\)\\\\n\" -H \"Host: evil.example.com\" http://127.0.0.1:8000/)"
+      "Bash(curl -s -o /dev/null -w \"чужой хост: %{http_code} \\(400 = отклонён, так и надо\\)\\\\n\" -H \"Host: evil.example.com\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"чужой хост: %{http_code}\\\\n\" -H \"Host: evil.example.com\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"боевой домен: %{http_code}\\\\n\" -H \"Host: betashar.pythonanywhere.com\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"127.0.0.1:  %{http_code}\\\\n\" http://127.0.0.1:8000/)"
     ]
   }
 }
